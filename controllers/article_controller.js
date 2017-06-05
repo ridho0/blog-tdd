@@ -30,14 +30,14 @@ module.exports = {
     Article.findById( req.params.id , (err, record)=>{
       if(err)
         res.json({ err })
-      let article = new Article
-      article.title = req.body.title
-      article.content = req.body.content
-      article.save((err)=>{
-        if(err)
-          console.log(err);
+      Article.update({ _id : req.params.id }, {
+        $set: {
+          title : req.body.title,
+          content : req.body.content
+        }
+      },{ new : true }, (err, data)=> {
+        err ? res.json({ err }) : res.json({msg:"success update"})
       })
-      res.json(article)
     })
   },
   delete : function(req, res) {

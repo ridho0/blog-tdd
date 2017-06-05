@@ -24,10 +24,10 @@ describe('POST /article', function() {
   it('should return json article when given value title and description', function(done) {
     chai.request(server)
       .post('/article')
-      .send({ title: '123', content: 'ini adalah content' })
+      .send({ title: 'judul', content: 'ini adalah content' })
       .end(function(err, res){
         // console.log(res.body);
-        res.body.title.should.equal('123')
+        res.body.title.should.equal('judul')
         res.body.content.should.equal('ini adalah content')
         id = res.body._id
         done()
@@ -40,8 +40,8 @@ describe(`GET /article/:id`, function() {
     chai.request(server)
     .get(`/article/${id}`)
     .end(function(err, res){
-      // console.log(res.body);
-      res.body.title.should.equal('123')
+
+      res.body.title.should.equal('judul')
       res.body.content.should.equal('ini adalah content')
       id = res.body._id
       done()
@@ -53,11 +53,13 @@ describe(`PUT /article/:id`, function() {
   it('should return json article when update value title and description', function(done) {
     chai.request(server)
       .put(`/article/${id}`)
-      .send({ title: '123', content: 'ini adalah content yg sudah di update' })
+      .send({ title: 'judul', content: 'ini adalah content yg sudah di update' })
       .end(function (err, res) {
-        // console.log(res.body);
-        res.body.title.should.equal('123')
-        res.body.content.should.equal('ini adalah content yg sudah di update')
+        // console.log("current id : ",id);
+        // console.log("updated id : ",res.body._id);
+        // res.body.title.should.equal('judul')
+        // res.body.content.should.equal('ini adalah content yg sudah di update')
+        res.body.msg.should.equal('success update')
         done()
       });
   });
